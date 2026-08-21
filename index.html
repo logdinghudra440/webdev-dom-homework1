@@ -61,6 +61,7 @@
   const comment = document.getElementById("com");
   const button = document.getElementById("add");
   const list = document.getElementById("list");
+  const oldHtml = list.innerHTML;
 
 
   function createCommentTemplate(name, text) {
@@ -78,7 +79,7 @@
           </div>
           <div class="comment-footer">
             <div class="likes">
-              <span class="likes-counter">3</span>
+              <span class="likes-counter">0</span>
               <button class="like-button"></button>
             </div>
           </div>
@@ -88,6 +89,8 @@
   button.addEventListener("click", () => {
     const name = userName.value;
     const text = comment.value;
+    const newCom = createCommentTemplate(name, text);
+    list.innerHTML = oldHtml + newCom;
   });
 
   console.log("It works!");
