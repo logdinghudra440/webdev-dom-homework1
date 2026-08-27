@@ -66,11 +66,12 @@
 
   function createCommentTemplate(name, text) {
     const date = new Date();
+    const formattedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear().toString().slice(-2)} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
     return `
          <li class="comment">
           <div class="comment-header">
             <div>${name}</div>
-            <div>${date.toLocaleString()}</div>
+            <div>${formattedDate}</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
