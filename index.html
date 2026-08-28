@@ -142,11 +142,12 @@
           <div class="comment-footer">
             <div class="likes">
               <span class="likes-counter">${items.likes}</span>
-              <button class="like-button"></button>
+              <button class="like-button  ${likeClass}"></button>
             </div>
           </div>
         </li>`
   }) 
+  list.innerHTML = htmlString.join('');
 </script>
 
 </html>
