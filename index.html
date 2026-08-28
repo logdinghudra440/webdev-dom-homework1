@@ -10,7 +10,7 @@
 <body>
   <div class="container">
     <ul class="comments" id="list">
-      <li class="comment">
+      <!--<li class="comment">
         <div class="comment-header">
           <div>Глеб Фокин</div>
           <div>12.02.22 12:18</div>
@@ -43,7 +43,7 @@
             <button class="like-button -active-like"></button>
           </div>
         </div>
-      </li>
+      </li>-->
     </ul>
     <div class="add-form">
       <input id="name" type="text" class="add-form-name" placeholder="Введите ваше имя" />
@@ -104,6 +104,49 @@
   });
 
   console.log("It works!");
+
+  const comments = [
+    {
+     name: "Глеб Фокин",
+     date: "12.02.22 12:18",
+     text: "Это будет первый комментарий на этой странице",
+     likes: 3,
+     isLiked: false
+    },
+    {
+     name: "Варвара Н.",
+     date: "13.02.22 19:22",
+     text: "Мне нравится как оформлена эта страница! ❤",
+     likes: 75,
+     isLiked: true
+    }
+  ]
+  const htmlString = comments.map(function(items){
+    let likeClass = '';
+    if (items.isLiked === true) {
+    likeClass = '-active-like';
+    } else {
+    likeClass = '';
+    }
+    return`
+    <li class="comment">
+          <div class="comment-header">
+            <div>${items.name}</div>
+            <div>${items.date}</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              ${items.text}
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">${items.likes}</span>
+              <button class="like-button"></button>
+            </div>
+          </div>
+        </li>`
+  }) 
 </script>
 
 </html>
