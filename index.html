@@ -57,6 +57,7 @@
 
 <script>
   "use strict";
+  //объявили переменные
   const userName = document.getElementById("name");
   const comment = document.getElementById("com");
   const button = document.getElementById("add");
@@ -64,7 +65,7 @@
   const oldHtml = list.innerHTML;
 
 
-  function createCommentTemplate(name, text) {
+  /*function createCommentTemplate(name, text) {
     const date = new Date();
     const formattedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear().toString().slice(-2)} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
     return `
@@ -101,10 +102,10 @@
     const text = comment.value;
     const newCom = createCommentTemplate(name, text);
     list.innerHTML = oldHtml + newCom;
-  });
+  });*/
 
   console.log("It works!");
-
+  //сделали массив с комментариями
   const comments = [
     {
      name: "Глеб Фокин",
@@ -121,6 +122,8 @@
      isLiked: true
     }
   ]
+  //зарендили прошлый код
+  function renderComments() {
   const htmlString = comments.map(function(items){
     let likeClass = '';
     if (items.isLiked === true) {
@@ -148,6 +151,41 @@
         </li>`
   }) 
   list.innerHTML = htmlString.join('');
+}
+renderComments();
+
+button.addEventListener("click", () => {
+    if (userName.value === "") {
+      userName.style.border = "1px solid red";
+      return;
+    }
+    if (comment.value === "") {
+      comment.style.border = "1px solid red";
+      return;
+}
+    const name = userName.value;
+    const text = comment.value; 
+    const date = new Date();
+    const formattedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear().toString().slice(-2)} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    
+    const comNew = {
+    name: name,
+    date: formattedDate,
+    text: text,
+    likes: 0,
+    isLiked: false
+    };
+    //добавили новый коммент
+    comments.push(comNew);
+    //очистили поля
+    userName.value = "";
+    comment.value = "";
+    userName.style.border = "";
+    comment.style.border = "";
+    //вызвали функцию при клике
+    renderComments();
+  });
+
 </script>
 
 </html>
