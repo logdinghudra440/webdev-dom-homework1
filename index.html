@@ -64,46 +64,6 @@
   const list = document.getElementById("list");
   const oldHtml = list.innerHTML;
 
-
-  /*function createCommentTemplate(name, text) {
-    const date = new Date();
-    const formattedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear().toString().slice(-2)} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-    return `
-         <li class="comment">
-          <div class="comment-header">
-            <div>${name}</div>
-            <div>${formattedDate}</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              ${text}
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">0</span>
-              <button class="like-button"></button>
-            </div>
-          </div>
-        </li>
-    `;
-  }
-  button.addEventListener("click", () => {
-    if (userName.value === "") {
-      userName.style.border = "1px solid red";
-      return;
-    }
-    if (comment.value === "") {
-      comment.style.border = "1px solid red";
-      return;
-}
-
-    const name = userName.value;
-    const text = comment.value;
-    const newCom = createCommentTemplate(name, text);
-    list.innerHTML = oldHtml + newCom;
-  });*/
-
   console.log("It works!");
   //сделали массив с комментариями
   const comments = [
@@ -122,6 +82,12 @@
      isLiked: true
     }
   ]
+
+  function sanitize(str) {
+    return str.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+}
+
+
   //зарендили прошлый код
   function renderComments() {
   const htmlString = comments.map(function(items, index){
@@ -167,11 +133,13 @@ button.addEventListener("click", () => {
     const text = comment.value; 
     const date = new Date();
     const formattedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear().toString().slice(-2)} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    const safeName = sanitize(name);
+    const safeText = sanitize(text);
     
     const comNew = {
-    name: name,
+    name: safeName,
     date: formattedDate,
-    text: text,
+    text: safeText,
     likes: 0,
     isLiked: false
     };
