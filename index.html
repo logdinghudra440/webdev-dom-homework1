@@ -10,40 +10,6 @@
 <body>
   <div class="container">
     <ul class="comments" id="list">
-      <!--<li class="comment">
-        <div class="comment-header">
-          <div>Глеб Фокин</div>
-          <div>12.02.22 12:18</div>
-        </div>
-        <div class="comment-body">
-          <div class="comment-text">
-            Это будет первый комментарий на этой странице
-          </div>
-        </div>
-        <div class="comment-footer">
-          <div class="likes">
-            <span class="likes-counter">3</span>
-            <button class="like-button"></button>
-          </div>
-        </div>
-      </li>
-      <li class="comment">
-        <div class="comment-header">
-          <div>Варвара Н.</div>
-          <div>13.02.22 19:22</div>
-        </div>
-        <div class="comment-body">
-          <div class="comment-text">
-            Мне нравится как оформлена эта страница! ❤
-          </div>
-        </div>
-        <div class="comment-footer">
-          <div class="likes">
-            <span class="likes-counter">75</span>
-            <button class="like-button -active-like"></button>
-          </div>
-        </div>
-      </li>-->
     </ul>
     <div class="add-form">
       <input id="name" type="text" class="add-form-name" placeholder="Введите ваше имя" />
@@ -152,6 +118,7 @@ button.addEventListener("click", () => {
   });
 
   list.addEventListener("click", (event) => {
+    event.stopPropagation();
     if (event.target.classList.contains('like-button')){
     const li = event.target.closest('.comment');
     const index = li.dataset.index;
@@ -165,6 +132,13 @@ button.addEventListener("click", () => {
       comment.likes = comment.likes - 1;
     }
     renderComments();
+  }
+  const commentsElements = document.querySelector(".comment");
+  for (const commentElement of commentsElements){
+    commentElement.addEventListener("click", () => {
+      const currentComment = comments[commentElement.dataset.index]
+      text.value = `${currentComment.name}: ${currentComment.text}`;
+    })
   }
   });
 
