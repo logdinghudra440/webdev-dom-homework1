@@ -132,15 +132,22 @@ button.addEventListener("click", () => {
       comment.likes = comment.likes - 1;
     }
     renderComments();
-  }
-  const commentsElements = document.querySelector(".comment");
+  }});
+ /*  const commentsElements = document.querySelectorAll(".comment");
   for (const commentElement of commentsElements){
     commentElement.addEventListener("click", () => {
-      const currentComment = comments[commentElement.dataset.index]
-      text.value = `${currentComment.name}: ${currentComment.text}`;
+      const currentComment = comments[Number(commentElement.dataset.index)];
+      comment.value = `${currentComment.name}: ${currentComment.text}`;
     })
-  }
+  } */
+
+  list.addEventListener("click", (event) => {
+    const commentElement = event.target.closest('.comment');
+    const index = Number(commentElement.dataset.index);
+    const findArray = comments[index];
+    comment.value = findArray.text
   });
+  
 
 </script>
 
