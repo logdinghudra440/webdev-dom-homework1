@@ -118,8 +118,8 @@ button.addEventListener("click", () => {
   });
 
   list.addEventListener("click", (event) => {
-    event.stopPropagation();
     if (event.target.classList.contains('like-button')){
+    event.stopPropagation();
     const li = event.target.closest('.comment');
     const index = li.dataset.index;
     const comment = comments[index];
@@ -133,19 +133,12 @@ button.addEventListener("click", () => {
     }
     renderComments();
   }});
- /*  const commentsElements = document.querySelectorAll(".comment");
-  for (const commentElement of commentsElements){
-    commentElement.addEventListener("click", () => {
-      const currentComment = comments[Number(commentElement.dataset.index)];
-      comment.value = `${currentComment.name}: ${currentComment.text}`;
-    })
-  } */
 
   list.addEventListener("click", (event) => {
     const commentElement = event.target.closest('.comment');
     const index = Number(commentElement.dataset.index);
     const findArray = comments[index];
-    comment.value = findArray.text
+    comment.value = `${findArray.name}: ${findArray.text}`;
   });
   
 
