@@ -10,40 +10,6 @@
 <body>
   <div class="container">
     <ul class="comments" id="list">
-      <li class="comment">
-        <div class="comment-header">
-          <div>Глеб Фокин</div>
-          <div>12.02.22 12:18</div>
-        </div>
-        <div class="comment-body">
-          <div class="comment-text">
-            Это будет первый комментарий на этой странице
-          </div>
-        </div>
-        <div class="comment-footer">
-          <div class="likes">
-            <span class="likes-counter">3</span>
-            <button class="like-button"></button>
-          </div>
-        </div>
-      </li>
-      <li class="comment">
-        <div class="comment-header">
-          <div>Варвара Н.</div>
-          <div>13.02.22 19:22</div>
-        </div>
-        <div class="comment-body">
-          <div class="comment-text">
-            Мне нравится как оформлена эта страница! ❤
-          </div>
-        </div>
-        <div class="comment-footer">
-          <div class="likes">
-            <span class="likes-counter">75</span>
-            <button class="like-button -active-like"></button>
-          </div>
-        </div>
-      </li>
     </ul>
     <div class="add-form">
       <input id="name" type="text" class="add-form-name" placeholder="Введите ваше имя" />
@@ -57,41 +23,124 @@
 
 <script>
   "use strict";
+  //объявили переменные
   const userName = document.getElementById("name");
   const comment = document.getElementById("com");
   const button = document.getElementById("add");
   const list = document.getElementById("list");
+  const oldHtml = list.innerHTML;
+
+  console.log("It works!");
+  //сделали массив с комментариями
+  const comments = [
+    {
+     name: "Глеб Фокин",
+     date: "12.02.22 12:18",
+     text: "Это будет первый комментарий на этой странице",
+     likes: 3,
+     isLiked: false
+    },
+    {
+     name: "Варвара Н.",
+     date: "13.02.22 19:22",
+     text: "Мне нравится как оформлена эта страница! ❤",
+     likes: 75,
+     isLiked: true
+    }
+  ]
+
+  function sanitize(str) {
+    return str.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+}
 
 
-  function createCommentTemplate(name, text) {
-    const date = new Date();
-    return `
-         <li class="comment">
+  //зарендили прошлый код
+  function renderComments() {
+  const htmlString = comments.map(function(items, index){
+    let likeClass = '';
+    if (items.isLiked === true) {
+    likeClass = '-active-like';
+    } else {
+    likeClass = '';
+    }
+    return`
+    <li class="comment" data-index="${index}">
           <div class="comment-header">
-            <div>${name}</div>
-            <div>${date}</div>
+            <div>${items.name}</div>
+            <div>${items.date}</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
-              ${text}
+              ${items.text}
             </div>
           </div>
           <div class="comment-footer">
             <div class="likes">
-              <span class="likes-counter">3</span>
-              <button class="like-button"></button>
+              <span class="likes-counter">${items.likes}</span>
+              <button class="like-button  ${likeClass}"></button>
             </div>
           </div>
-        </li>
-    `;
-  }
-  button.addEventListener("click", () => {
-    const name = userName.value;
-    const text = comment.value;
+        </li>`
+  }) 
+  list.innerHTML = htmlString.join('');
+}
+renderComments();
 
+button.addEventListener("click", () => {
+    if (userName.value === "") {
+      userName.style.border = "1px solid red";
+      return;
+    }
+    if (comment.value === "") {
+      comment.style.border = "1px solid red";
+      return;
+}
+    const name = userName.value;
+    const text = comment.value; 
+    const date = new Date();
+    const formattedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear().toString().slice(-2)} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    const safeName = sanitize(name);
+    const safeText = sanitize(text);
+    
+    const comNew = {
+    name: safeName,
+    date: formattedDate,
+    text: safeText,
+    likes: 0,
+    isLiked: false
+    };
+    comments.push(comNew);
+    userName.value = "";
+    comment.value = "";
+    userName.style.border = "";
+    comment.style.border = "";
+    renderComments();
   });
 
-  console.log("It works!");
+  list.addEventListener("click", (event) => {
+    if (event.target.classList.contains('like-button')){
+    const li = event.target.closest('.comment');
+    const index = li.dataset.index;
+    const comment = comments[index];
+    
+    if (comment.isLiked === false) {
+      comment.isLiked = true;
+      comment.likes = comment.likes + 1;
+    } else {
+      comment.isLiked = false;
+      comment.likes = comment.likes - 1;
+    }
+    event.stopPropagation();
+    renderComments();
+    return;
+  }
+    const commentElement = event.target.closest('.comment');
+    const index = Number(commentElement.dataset.index);
+    const findArray = comments[index];
+    comment.value = `${findArray.name}: ${findArray.text}`;
+});
+
+
 </script>
 
 </html>
