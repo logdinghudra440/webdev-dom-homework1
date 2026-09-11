@@ -1,3 +1,7 @@
+ import { renderComments } from "./render";
+ import { comment, list } from "./const";
+ import { comments } from "./array";
+ 
  list.addEventListener("click", (event) => {
     if (event.target.classList.contains('like-button')){
     const li = event.target.closest('.comment');

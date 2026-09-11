@@ -1,11 +1,4 @@
-
-  const userName = document.getElementById("name");
-  const comment = document.getElementById("com");
-  const button = document.getElementById("add");
-  const list = document.getElementById("list");
-  const oldHtml = list.innerHTML;
- 
-  const comments = [
+ export const comments = [
     {
      name: "Глеб Фокин",
      date: "12.02.22 12:18",
@@ -21,11 +14,3 @@
      isLiked: true
     }
   ]
-
-  function sanitize(str) {
-    return str.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-}
-
-
-
- 

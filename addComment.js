@@ -1,3 +1,8 @@
+import { userName, comment, button } from "./const";
+import { comments } from "./array";
+import { renderComments } from "./render";
+import { sanitize } from "./const";
+
 button.addEventListener("click", () => {
     if (userName.value === "") {
       userName.style.border = "1px solid red";

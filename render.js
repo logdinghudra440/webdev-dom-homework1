@@ -1,4 +1,7 @@
- function renderComments() {
+import { list } from "./const";
+import { comments } from "./array";
+
+export function renderComments() {
   const htmlString = comments.map(function(items, index){
     let likeClass = '';
     if (items.isLiked === true) {
