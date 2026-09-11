@@ -119,7 +119,6 @@ button.addEventListener("click", () => {
 
   list.addEventListener("click", (event) => {
     if (event.target.classList.contains('like-button')){
-    event.stopPropagation();
     const li = event.target.closest('.comment');
     const index = li.dataset.index;
     const comment = comments[index];
@@ -131,16 +130,16 @@ button.addEventListener("click", () => {
       comment.isLiked = false;
       comment.likes = comment.likes - 1;
     }
+    event.stopPropagation();
     renderComments();
-  }});
-
-  list.addEventListener("click", (event) => {
+    return;
+  }
     const commentElement = event.target.closest('.comment');
     const index = Number(commentElement.dataset.index);
     const findArray = comments[index];
     comment.value = `${findArray.name}: ${findArray.text}`;
-  });
-  
+});
+
 
 </script>
 
