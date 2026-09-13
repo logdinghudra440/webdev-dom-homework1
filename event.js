@@ -1,7 +1,8 @@
- import { renderComments } from "./render";
- import { comment, list } from "./const";
- import { comments } from "./array";
+ import { renderComments } from "./render.js";
+ import { comment, list } from "./const.js";
+ import { comments } from "./array.js";
  
+ export function addEvent () {
  list.addEventListener("click", (event) => {
     if (event.target.classList.contains('like-button')){
     const li = event.target.closest('.comment');
@@ -23,4 +24,4 @@
     const index = Number(commentElement.dataset.index);
     const findArray = comments[index];
     comment.value = `${findArray.name}: ${findArray.text}`;
-});
+});}

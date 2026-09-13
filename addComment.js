@@ -1,7 +1,7 @@
-import { userName, comment, button } from "./const";
-import { comments } from "./array";
-import { renderComments } from "./render";
-import { sanitize } from "./const";
+import { userName, comment, button } from "./const.js";
+import { comments } from "./array.js";
+import { renderComments } from "./render.js";
+import { sanitize } from "./const.js";
 
 button.addEventListener("click", () => {
     if (userName.value === "") {

@@ -1,5 +1,5 @@
-import { list } from "./const";
-import { comments } from "./array";
+import { list } from "./const.js";
+import { comments } from "./array.js";
 
 export function renderComments() {
   const htmlString = comments.map(function(items, index){
