@@ -3,7 +3,7 @@ import { comments } from "./array.js";
 import { renderComments } from "./render.js";
 import { sanitize } from "./const.js";
 
-button.addEventListener("click", () => {
+export function addComment() {button.addEventListener("click", () => {
     if (userName.value === "") {
       userName.style.border = "1px solid red";
       return;
@@ -32,4 +32,4 @@ button.addEventListener("click", () => {
     userName.style.border = "";
     comment.style.border = "";
     renderComments();
-  });
+  })};
