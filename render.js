@@ -30,4 +30,4 @@ export function renderComments() {
   }) 
   list.innerHTML = htmlString.join('');
 }
-renderComments();
+/* renderComments(); */
