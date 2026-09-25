@@ -2,8 +2,10 @@ import { userName, comment, button } from "./const.js";
 import { comments } from "./array.js";
 import { renderComments } from "./render.js";
 import { sanitize } from "./const.js";
+import { createComment } from "./apis.js";
+import { getComments } from "./apis.js";
 
-export function addComment() {button.addEventListener("click", () => {
+export function addComment() {button.addEventListener("click", async () => {
     if (userName.value === "") {
       userName.style.border = "1px solid red";
       return;
@@ -14,22 +16,20 @@ export function addComment() {button.addEventListener("click", () => {
 }
     const name = userName.value;
     const text = comment.value; 
-    const date = new Date();
-    const formattedDate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear().toString().slice(-2)} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-    const safeName = sanitize(name);
-    const safeText = sanitize(text);
-    
-    const comNew = {
-    name: safeName,
-    date: formattedDate,
-    text: safeText,
-    likes: 0,
-    isLiked: false
-    };
-    comments.push(comNew);
-    userName.value = "";
+
+    try {
+      await createComment(name, text);
+      const freshComments = await getComments();
+      comments.splice(0, comments.length); 
+      comments.push(...freshComments);  
+      userName.value = "";
     comment.value = "";
     userName.style.border = "";
     comment.style.border = "";
     renderComments();
+    } 
+    catch (error){
+      console.error("Ошибка при добавлении комментария:", error);
+      alert("Не удалось добавить комментарий.Попробуйте позже")
+    }
   })};
