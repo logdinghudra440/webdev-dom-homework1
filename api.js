@@ -1,29 +1,33 @@
 import { sanitize } from "./const.js";
 
-const API_URL = "https://wedev-api.sky.pro/api/v1/karina-tishchenko/comments";
+const API_URL = "https://wedev-api.sky.pro/api/v1/logdinghudra440/comments";
 
 export async function getComments() {
   const response = await fetch(API_URL);
+  console.log("status:", response.status);
   if (!response.ok) {
     throw new Error("Не удалось загрузить комментарии");
   }
   const data = await response.json();
+  console.log("Ответ сервера:", data);
+
   return data.comments.map((item) => ({
     name: sanitize(item.author.name),
     date: new Date(item.date).toLocaleString("ru-RU"),
     text: sanitize(item.text),
-    likes: 0,
-    isLiked: false,
+    likes: item.likes,
+    isLiked: item.isLiked,
   }));
 }
 
 export async function createComment(name, text) {
   const response = await fetch(API_URL, {
     method: "POST",
-    headers: {
+    /* headers: {
       "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ name, text }),
+      
+    }, */
+    body: JSON.stringify({ name, text }), 
   });
   if (!response.ok) {
     const errorData = await response.json();

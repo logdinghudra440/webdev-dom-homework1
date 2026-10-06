@@ -2,8 +2,8 @@ import { userName, comment, button } from "./const.js";
 import { comments } from "./array.js";
 import { renderComments } from "./render.js";
 import { sanitize } from "./const.js";
-import { createComment } from "./apis.js";
-import { getComments } from "./apis.js";
+import { createComment } from "./api.js";
+import { getComments } from "./api.js";
 
 export function addComment() {button.addEventListener("click", async () => {
     if (userName.value === "") {
