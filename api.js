@@ -23,10 +23,6 @@ export async function getComments() {
 export async function createComment(name, text) {
   const response = await fetch(API_URL, {
     method: "POST",
-    /* headers: {
-      "Content-Type": "application/json",
-      
-    }, */
     body: JSON.stringify({ name, text }), 
   });
   if (!response.ok) {

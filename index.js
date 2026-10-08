@@ -10,6 +10,7 @@ import { getComments } from "./api.js";
 
 async function init() {
   try {
+    list.innerHTML = "<p>Комментарии загружаются...</p>";
     const loadedComments = await getComments();
     console.log("loadedComments:", loadedComments);
     comments.push(...loadedComments);
