@@ -16,6 +16,10 @@ export function addComment() {button.addEventListener("click", async () => {
 }
     const name = userName.value;
     const text = comment.value; 
+    if (name.length < 3 || text.length < 3) {
+      alert("Имя и комментарий должны быть не короче 3 символов");
+      return;
+    }
     addForm.style.display = "none";
     loadingAdd.style.display = "block";
 
@@ -35,7 +39,13 @@ export function addComment() {button.addEventListener("click", async () => {
     catch (error){
       addForm.style.display = "";
       loadingAdd.style.display = "none";
-      console.error("Ошибка при добавлении комментария:", error);
-      alert("Не удалось добавить комментарий.Попробуйте позже")
-    }
+      if (error.message === "Сервер сломался") {
+    alert("Сервер сломался, попробуй позже");
+  } else if (error.message === "Плохой запрос") {
+    alert("Имя и комментарий должны быть не короче 3 символов");
+  } else {
+    alert("Кажется, у вас сломался интернет, попробуйте позже");
+  }
+}
+
   })};
