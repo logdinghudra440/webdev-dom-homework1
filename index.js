@@ -1,9 +1,5 @@
 import { renderComments } from "./render.js";
-
 import { addEvent } from "./event.js";
-
-import { addComment } from "./addComment.js"
-
 import { comments } from "./array.js";
 import { list } from "./const.js";
 import { getComments } from "./api.js";
@@ -23,5 +19,4 @@ async function init() {
 }
 
 addEvent();
-addComment();
 init();
