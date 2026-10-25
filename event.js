@@ -1,5 +1,5 @@
  import { renderComments } from "./render.js";
- import { comment, list } from "./const.js";
+ import { list } from "./const.js";
  import { comments } from "./array.js";
  
  export function addEvent () {
@@ -21,7 +21,14 @@
     return;
   }
     const commentElement = event.target.closest('.comment');
+    if (!commentElement) return;
+
     const index = Number(commentElement.dataset.index);
     const findArray = comments[index];
-    comment.value = `${findArray.name}: ${findArray.text}`;
-});}
+    
+    const commentInput = document.getElementById("com");
+    if (commentInput && findArray) {
+      commentInput.value = `${findArray.name}: ${findArray.text}`;
+}
+ });
+}

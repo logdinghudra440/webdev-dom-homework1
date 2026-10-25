@@ -43,6 +43,9 @@ export async function createComment(name, text) {
 export async function login(userLogin, userPassword) {
   const response = await fetch(AUTH_URL, {
     method: "POST",
+      headers: {
+      "Content-Type": "application/json", // ← добавь эту строчку
+    },
     body: JSON.stringify({login: userLogin, password: userPassword}),
   });
   if (!response.ok) {

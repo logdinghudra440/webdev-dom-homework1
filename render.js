@@ -66,11 +66,11 @@ export function renderComments() {
 export function renderLogin() {
   const app = document.getElementById("list"); 
   
-  app.innerHTML = `
-    <div class="add-form" style="margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
-      <h2 style="margin: 0; text-align: center;">Вход</h2>
-      <input id="login-input" type="text" class="add-form-name" placeholder="Введите логин" style="width: 100%;" />
-      <input id="password-input" type="password" class="add-form-name" placeholder="Введите пароль" style="width: 100%;" />
+   app.innerHTML = `
+    <div class="add-form">
+      <h2 style="margin: 0; text-align: center; color: white;">Вход</h2>
+      <input id="login-input" type="text" class="add-form-name" placeholder="Введите логин" />
+      <input id="password-input" type="password" class="add-form-name" placeholder="Введите пароль" />
       <div class="add-form-row">
         <button class="add-form-button" id="login-button">Войти</button>
       </div>
